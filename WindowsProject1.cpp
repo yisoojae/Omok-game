@@ -171,6 +171,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 MoveToEx(hdc, START_X, START_Y + INTERVAL * i, NULL);
                 LineTo(hdc, START_X + INTERVAL * (X_COUNT - 1), START_Y + INTERVAL * i);
             }
+            for (int i = 0; i < X_COUNT; i++)
+                for (int j = 0; j < Y_COUNT; j++)
+                {
+                    if (g_dol[i][j] == 1)
+                    {
+                        SelectObject(hdc, GetStockObject(BLACK_BRUSH));
+                        Ellipse(hdc, START_X - (INTERVAL / 2) + (INTERVAL * i), START_Y - (INTERVAL / 2) + (INTERVAL * j), START_X + (INTERVAL / 2) + (INTERVAL * i), START_Y + (INTERVAL / 2) + (INTERVAL * j));
+                    }
+                    else if (g_dol[i][j] == 2)
+                    {
+                        SelectObject(hdc, GetStockObject(WHITE_BRUSH));
+                        Ellipse(hdc, START_X - (INTERVAL / 2) + (INTERVAL * i), START_Y - (INTERVAL / 2) + (INTERVAL * j), START_X + (INTERVAL / 2) + (INTERVAL * i), START_Y + (INTERVAL / 2) + (INTERVAL * j));
+                    }
+                }
             EndPaint(hWnd, &ps);
         }
         break;
