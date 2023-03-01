@@ -6,6 +6,16 @@
 
 #define MAX_LOADSTRING 100
 
+#define X_COUNT 19
+#define Y_COUNT 19
+#define START_X 50
+#define START_Y 50
+#define INTERVAL 26
+char g_dol[X_COUNT][Y_COUNT];
+char g_step;
+char g_log[X_COUNT * Y_COUNT][2];
+int g_turn;
+
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -151,6 +161,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            for (int i = 0; i < X_COUNT; i++)
+            {
+                MoveToEx(hdc, START_X + INTERVAL * i, START_Y, NULL);
+                LineTo(hdc, START_X + INTERVAL * i, START_Y + INTERVAL * (Y_COUNT - 1));
+            }
+            for (int i = 0; i < Y_COUNT; i++)
+            {
+                MoveToEx(hdc, START_X, START_Y + INTERVAL * i, NULL);
+                LineTo(hdc, START_X + INTERVAL * (X_COUNT - 1), START_Y + INTERVAL * i);
+            }
             EndPaint(hWnd, &ps);
         }
         break;
