@@ -202,6 +202,84 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 g_step = !g_step;
                 InvalidateRect(hWnd, NULL, false);
             }
+
+            int gameSetcheck = 0;
+            for (int i = mouse_X - 4; i < mouse_X + 5; i++)
+            {
+                if (i < 0) i = 0;
+                if (i >= X_COUNT) break;
+                if (g_dol[i][mouse_Y] == !g_step + 1)
+                {
+                    gameSetcheck += 1;
+                    if (gameSetcheck == 5)
+                    {
+                        if (g_step) MessageBox(hWnd, L"흑돌 승리", L"승리", MB_OK);
+                        else MessageBox(hWnd, L"백돌 승리", L"승리", MB_OK);
+                        for (int i = 0; i < X_COUNT; i++)
+                            for (int j = 0; j < Y_COUNT; j++)
+                            {
+                                g_dol[i][j] = 0;
+                                g_step = 0;
+                                g_turn = 0;
+                            }
+                        InvalidateRect(hWnd, NULL, true);
+                        break;
+                    }
+                }
+                else gameSetcheck = 0;
+            }
+            gameSetcheck = 0;
+            for (int i = mouse_Y - 4; i < mouse_Y + 5; i++)
+            {
+                if (i < 0) i = 0;
+                if (i >= Y_COUNT) break;
+                if (g_dol[mouse_X][i] == !g_step + 1)
+                {
+                    gameSetcheck += 1;
+                    if (gameSetcheck == 5)
+                    {
+                        if (g_step) MessageBox(hWnd, L"흑돌 승리", L"승리", MB_OK);
+                        else MessageBox(hWnd, L"백돌 승리", L"승리", MB_OK);
+                        for (int i = 0; i < X_COUNT; i++)
+                            for (int j = 0; j < Y_COUNT; j++)
+                            {
+                                g_dol[i][j] = 0;
+                                g_step = 0;
+                                g_turn = 0;
+                            }
+                        InvalidateRect(hWnd, NULL, true);
+                        break;
+                    }
+                }
+                else gameSetcheck = 0;
+            }
+            gameSetcheck = 0;
+            for (int i = - 4; i < 5; i++)
+            {
+                if (i + mouse_X < 0) i = -mouse_X;
+                if (i + mouse_Y < 0) i = -mouse_Y;
+                if (i >= X_COUNT - mouse_X) break;
+                if (i >= Y_COUNT - mouse_Y) break;
+                if (g_dol[i + mouse_X][i + mouse_Y] == !g_step + 1)
+                {
+                    gameSetcheck += 1;
+                    if (gameSetcheck == 5)
+                    {
+                        if (g_step) MessageBox(hWnd, L"흑돌 승리", L"승리", MB_OK);
+                        else MessageBox(hWnd, L"백돌 승리", L"승리", MB_OK);
+                        for (int i = 0; i < X_COUNT; i++)
+                            for (int j = 0; j < Y_COUNT; j++)
+                            {
+                                g_dol[i][j] = 0;
+                                g_step = 0;
+                                g_turn = 0;
+                            }
+                        InvalidateRect(hWnd, NULL, true);
+                        break;
+                    }
+                }
+                else gameSetcheck = 0;
+            }
         }
         break;
     }
