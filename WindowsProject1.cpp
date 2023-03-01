@@ -174,6 +174,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+    case WM_LBUTTONDOWN:
+    {
+        int mouse_X = (LOWORD(lParam) - START_X + (INTERVAL / 2)) / INTERVAL, mouse_Y = (HIWORD(lParam) - START_Y + (INTERVAL / 2)) / INTERVAL;
+        if (0 <= mouse_X && mouse_X < X_COUNT && 0 <= mouse_Y && mouse_Y < Y_COUNT)
+        {
+            if (g_dol[mouse_X][mouse_Y] == 0)
+            {
+                g_dol[mouse_X][mouse_Y] = g_step + 1;
+                g_log[g_turn][0] = mouse_X;
+                g_log[g_turn][1] = mouse_Y;
+                g_turn += 1;
+                g_step = !g_step;
+                InvalidateRect(hWnd, NULL, false);
+            }
+        }
+        break;
+    }
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
