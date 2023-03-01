@@ -205,6 +205,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     }
+    case WM_RBUTTONDOWN:
+    {
+        if (g_turn != 0)
+        {
+            g_turn -= 1;
+            g_dol[g_log[g_turn][0]][g_log[g_turn][1]] = 0;
+            g_step = !g_step;
+            InvalidateRect(hWnd, NULL, true);
+        }
+        break;
+    }
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
